@@ -185,7 +185,7 @@ function Page() {
             </h2>
           </div>
           <div className="mt-4 divide-y divide-border rounded-2xl border border-border bg-card">
-            {allFaqs.map((f) => (
+            {allFaqs.map((f: { q: string; a: string }) => (
               <details key={f.q} className="group p-5">
                 <summary className="cursor-pointer list-none text-sm font-semibold text-foreground sm:text-base">
                   {f.q}
