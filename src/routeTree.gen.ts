@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as QaIndexRouteImport } from './routes/qa.index'
 import { Route as CalculatorsIndexRouteImport } from './routes/calculators.index'
@@ -17,6 +18,11 @@ import { Route as QaSlugRouteImport } from './routes/qa.$slug'
 import { Route as CalculatorsSlugRouteImport } from './routes/calculators.$slug'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -55,6 +61,7 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/calculators/$slug': typeof CalculatorsSlugRoute
   '/qa/$slug': typeof QaSlugRoute
@@ -64,6 +71,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/calculators/$slug': typeof CalculatorsSlugRoute
   '/qa/$slug': typeof QaSlugRoute
@@ -74,6 +82,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/calculators/$slug': typeof CalculatorsSlugRoute
   '/qa/$slug': typeof QaSlugRoute
@@ -85,6 +94,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/blog/$slug'
     | '/calculators/$slug'
     | '/qa/$slug'
@@ -94,6 +104,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/blog/$slug'
     | '/calculators/$slug'
     | '/qa/$slug'
@@ -103,6 +114,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/blog/$slug'
     | '/calculators/$slug'
     | '/qa/$slug'
@@ -113,6 +125,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   BlogSlugRoute: typeof BlogSlugRoute
   CalculatorsSlugRoute: typeof CalculatorsSlugRoute
   QaSlugRoute: typeof QaSlugRoute
@@ -123,6 +136,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -177,6 +197,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   BlogSlugRoute: BlogSlugRoute,
   CalculatorsSlugRoute: CalculatorsSlugRoute,
   QaSlugRoute: QaSlugRoute,
