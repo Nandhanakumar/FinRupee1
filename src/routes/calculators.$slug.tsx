@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, BookOpen, HelpCircle, ListChecks, Calculator as CalcIcon } from "lucide-react";
-import { calculators, getCalculator, type Calculator } from "../lib/calculators";
+import { calculators, getCalculator, type Calculator, type CalculatorField } from "../lib/calculators";
 import { CalculatorView } from "../components/CalculatorView";
 
 // Category-specific evergreen FAQs appended to each calculator's own FAQs.
@@ -165,7 +165,7 @@ function Page() {
           </div>
           <p className="mt-4 text-sm text-muted-foreground">{calc.description}</p>
           <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-            {calc.fields.map((f) => (
+            {(calc.fields as CalculatorField[]).map((f) => (
               <li key={f.name}>
                 <span className="font-semibold text-foreground">{f.label}</span>
                 {f.suffix ? <> — entered in <span className="font-mono">{f.suffix.trim()}</span></> : null}
