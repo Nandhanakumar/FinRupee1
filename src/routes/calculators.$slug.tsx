@@ -115,7 +115,7 @@ function Page() {
   const { calc } = Route.useLoaderData();
   const related = calculators.filter((c) => c.category === calc.category && c.slug !== calc.slug).slice(0, 4);
   const steps = howToSteps(calc);
-  const allFaqs = [...calc.faqs, ...CATEGORY_FAQS[calc.category]];
+  const allFaqs = [...calc.faqs, ...CATEGORY_FAQS[calc.category as Calculator["category"]]];
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
